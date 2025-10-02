@@ -1,0 +1,47 @@
+[
+  {
+    "Id": 1,
+    "NombreApellido": "Laura Verónica Zilvestein",
+    "Slug": "laura-veronica-zilvestein",
+    "ImagenPerfil": "https://i.postimg.cc/sXLWRL4r/0ac0999fa5973cef054ebd62ef428246-0-Laura-Zilvestein-1.jpg",
+    "ImagenPortada": "https://i.postimg.cc/cover1.jpg",
+    "Provincia": "Río Negro",
+    "Ciudad": "General Roca",
+    "Latitud": -39.03333,
+    "Longitud": -67.58333,
+    "Especialidades": ["Coaching Ontológico"],
+    "SobreMi": "Soy Coach Ontológico y tengo una consultora de coaching y capacitación para equipos de trabajo.",
+    "Disponibilidad": "Lunes a Viernes de 10:00 a 14:00",
+    "Genero": "Femenino"
+  },
+  {
+    "Id": 2,
+    "NombreApellido": "Ami Barreiro Coach",
+    "Slug": "ami-barreiro-coach",
+    "ImagenPerfil": "https://i.postimg.cc/V6hKHDSv/20250524-173914-amalia-barreiro-1.jpg",
+    "ImagenPortada": "https://i.postimg.cc/L8vw3kV9/IMG-20250818-WA0166-amalia-barreiro-1.jpg",
+    "Provincia": "Río Negro",
+    "Ciudad": "General Roca",
+    "Latitud": -39.03330,
+    "Longitud": -67.58330,
+    "Especialidades": ["Grief Coach", "Coach Ontológico", "Mindfulness"],
+    "SobreMi": "Soy Amalia, de Gral. Roca- Río Negro. Mi profesion y pasión, coach ontológico, grief coaching (duelos), facilitadora en mindfulness y manejo del estrés.",
+    "Disponibilidad": "Lunes a Viernes de 09:00 a 19:00",
+    "Genero": "Femenino"
+  },
+  {
+    "Id": 3,
+    "NombreApellido": "Tarot Rumbo Mistico",
+    "Slug": "tarot-rumbo-mistico",
+    "ImagenPerfil": "https://i.postimg.cc/HkNK8SkX/IMG-20251002-WA0004.jpg",
+    "ImagenPortada": "https://i.postimg.cc/y65S5cW8/IMG-20251002-WA0003.jpg",
+    "Provincia": "Chubut",
+    "Ciudad": "Esquel",
+    "Latitud": -42.91147,
+    "Longitud": -71.19101,
+    "Especialidades": ["Numerología", "Tarot"],
+    "SobreMi": "Soy Yesica y Numerología me dedica a realizar lecturas para que cada ser pueda tener claridad sobre sus incertidumbres, puedan tomar nuevas decisiones, tener nuevas perspectivas, tomar nuevas decisiones que generen cambios positivos en la vida de la persona. Podemos revisar cualquier área/ aspecto de tu vida. Te espero para guiarte te ofrezco una escucha activa y empática y total confidencialidad.",
+    "Disponibilidad": "Lunes a Sábado de 12:00 a 20:00",
+    "Genero": "Femenino"
+  }
+]

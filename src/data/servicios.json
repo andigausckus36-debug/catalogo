@@ -1,0 +1,59 @@
+[
+{
+"Id": 1,
+"Titulo": "Oráculo para tu alma",
+"Categoria": "Tarot",
+"Descripcion": "Este oráculo te ofrece un mensaje directo que tu alma necesita recibir en tu momento presente. Está opción es ideal cuando no sabes que lectura realizar. El oráculo es la mejor opción.",
+"Terapeutaid": 3,
+"Precio": 3333,
+"Duracion": "5 min",
+"Urlimagen": "https://i.postimg.cc/jSLPMPVP/IMG-20251001-WA0009.jpg",
+"Modalidad": "Online"
+},
+{
+"Id": 2,
+"Titulo": "Pregunta concreta al tarot",
+"Categoria": "Tarot",
+"Descripcion": "Permite que las cartas te guíen con una respuesta amplia a tu pregunta. Vas a recibir un mensaje claro y conciso.",
+"Terapeutaid": 3,
+"Precio": 6666,
+"Duracion": "45 min",
+"Urlimagen": "https://i.postimg.cc/XYmHLnPG/IMG-20251001-WA0010.jpg",
+"Modalidad": "Online"
+},
+{
+"Id": 3,
+"Titulo": "Tirada de respuesta rápida Sí o No",
+"Categoria": "Tarot",
+"Descripcion": "Está tirada corresponde a una pregunta concreta y precisa. Para sacarte esas dudas fácilmente. De ella vas a tener una respuesta negativa o afirmativa. Si no sabes como formular la pregunta yo te ayudo con ello.",
+"Terapeutaid": 3,
+"Precio": 3333,
+"Duracion": "5 a 10 min",
+"Urlimagen": "https://i.postimg.cc/nrnpL4Y9/IMG-20251001-WA0011.jpg",
+"Modalidad": "Online"
+},
+{
+"Id": 4,
+"Titulo": "Capacitación y Coaching para equipos de trabajo",
+"Categoria": "Coaching",
+"Descripcion": "Sesiones de coaching virtuales y capacitación de liderazgo para equipos de trabajo.",
+"Terapeutaid": 1,
+"Precio": 30000,
+"Duracion": "60 min",
+"Urlimagen": "https://i.postimg.cc/yNqdHS5c/IMG-20251001-WA0012.jpg",
+"Modalidad": "Online"
+},
+{
+"Id": 5,
+"Titulo": "Coach Ontológico orientado al duelo",
+"Categoria": "Coaching Ontológico",
+"Descripcion": "Acompaño a personas en procesos de transformación personal a través del coaching ontológico, abordando el duelo, cultivando la atención plena y desarrollando estrategias efectivas para el manejo del estrés.",
+"Terapeutaid": 2,
+"Precio": 20000,
+"Duracion": "60 min",
+"Urlimagen": "https://i.postimg.cc/9FJ8KdDy/IMG-20251001-WA0013.jpg",
+"Modalidad": "Online"
+}
+  
+]
+
