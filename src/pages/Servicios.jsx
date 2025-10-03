@@ -111,7 +111,7 @@ const Servicios = () => {
         {/* Precio */}
         <Listbox value={precioSeleccionado} onChange={setPrecioSeleccionado}>
           <div className="relative w-52">
-            <Listbox.Button className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-center focus:outline-none">
+            <Listbox.Button className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-left focus:outline-none">
               {precioSeleccionado || "Precio"}
             </Listbox.Button>
             <Listbox.Options className="absolute w-full mt-1 bg-white border border-gray-300 rounded-md max-h-60 overflow-auto z-10">

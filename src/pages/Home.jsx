@@ -1,10 +1,13 @@
 // Home.jsx
+import { useEffect } from "react";
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import * as Accordion from "@radix-ui/react-accordion";
 import { Listbox } from "@headlessui/react";
+
+import MarkerClusterGroup from "react-leaflet-markercluster";
 
 import terapeutas from "../data/terapeutas.json";
 import servicios from "../data/servicios.json";
@@ -21,12 +24,14 @@ const Home = () => {
   const [especialidad, setEspecialidad] = useState(null);
   const [provincia, setProvincia] = useState(null);
   const [ciudad, setCiudad] = useState(null);
+  const [map, setMap] = useState(null);
 
   // Valores únicos desde JSON
   const categoriasDisponibles = [...new Set(servicios.map(s => s.Categoria))];
   const provinciasUnicas = [...new Set(terapeutas.map(t => t.Provincia))];
   const ciudadesUnicas = [...new Set(terapeutas.map(t => t.Ciudad))];
 
+  // Filtrar terapeutas primero
   const terapeutasFiltrados = terapeutas.filter((t) => {
     const coincideEspecialidad = !especialidad || servicios.some(
       (s) => s.Terapeutaid === t.Id && s.Categoria === especialidad
@@ -35,6 +40,17 @@ const Home = () => {
     const coincideCiudad = !ciudad || t.Ciudad === ciudad;
     return coincideEspecialidad && coincideProvincia && coincideCiudad;
   });
+
+  // Luego el useEffect usa terapeutasFiltrados
+  useEffect(() => {
+    if (!map || terapeutasFiltrados.length === 0) return;
+
+    const bounds = L.latLngBounds(
+      terapeutasFiltrados.map(t => [Number(t.Latitud), Number(t.Longitud)])
+    );
+
+    map.fitBounds(bounds, { padding: [50, 50] });
+  }, [terapeutasFiltrados, map]);
 
   // Filtrar ciudades según provincia seleccionada
 const ciudadesFiltradas = provincia
@@ -159,10 +175,18 @@ const ciudadesFiltradas = provincia
 
   {/* Especialidad */}
   <Listbox value={especialidad} onChange={setEspecialidad}>
-    <div className="relative w-56">
-      <Listbox.Button className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 text-center focus:outline-none focus:ring-0">
-  {especialidad || "Especialidad"}
-</Listbox.Button>
+    <div className="relative w-56 flex items-center">
+      <Listbox.Button className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 text-center focus:outline-none focus:ring-0 flex justify-between items-center">
+        <span>{especialidad || "Especialidad"}</span>
+        {especialidad && (
+          <button
+            className="ml-2 text-gray-400 hover:text-gray-600"
+            onClick={(e) => { e.stopPropagation(); setEspecialidad(null); }}
+          >
+            ✕
+          </button>
+        )}
+      </Listbox.Button>
       <Listbox.Options className="absolute mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
         {categoriasDisponibles.map((esp, idx) => (
           <Listbox.Option
@@ -180,8 +204,19 @@ const ciudadesFiltradas = provincia
   {/* Provincia */}
   <Listbox value={provincia} onChange={setProvincia}>
     <div className="relative w-56">
-      <Listbox.Button className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 text-center focus:outline-none focus:ring-0">
-        {provincia || "Provincia"}
+      <Listbox.Button className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 text-center focus:outline-none focus:ring-0 flex justify-between items-center">
+        <span>{provincia || "Provincia"}</span>
+        {provincia && (
+          <button
+            className="ml-2 text-gray-400 hover:text-gray-600"
+            onClick={(e) => {
+              e.stopPropagation(); // evita abrir el Listbox al hacer click en la X
+              setProvincia(null);
+            }}
+          >
+            ✕
+          </button>
+        )}
       </Listbox.Button>
       <Listbox.Options className="absolute mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
         {provinciasUnicas.map((prov, idx) => (
@@ -200,8 +235,19 @@ const ciudadesFiltradas = provincia
   {/* Ciudad */}
   <Listbox value={ciudad} onChange={setCiudad}>
     <div className="relative w-56">
-      <Listbox.Button className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 text-center focus:outline-none focus:ring-0">
-        {ciudad || "Ciudad"}
+      <Listbox.Button className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 text-center focus:outline-none focus:ring-0 flex justify-between items-center">
+        <span>{ciudad || "Ciudad"}</span>
+        {ciudad && (
+          <button
+            className="ml-2 text-gray-400 hover:text-gray-600"
+            onClick={(e) => {
+              e.stopPropagation(); // evita abrir el Listbox al hacer click en la X
+              setCiudad(null);
+            }}
+          >
+            ✕
+          </button>
+        )}
       </Listbox.Button>
       <Listbox.Options className="absolute mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
         {ciudadesFiltradas.map((ciu, idx) => (
@@ -220,36 +266,72 @@ const ciudadesFiltradas = provincia
 </div>
 
         {/* Mapa Leaflet */}
-<div className="w-full rounded-xl overflow-hidden shadow-lg relative z-0 mb-16">
-  <MapContainer
-    center={[-38.4161, -63.6167]}
-    zoom={4}
-    scrollWheelZoom={true}
-    style={{ width: "100%", height: "400px" }}
-  >
-    <TileLayer
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      attribution="&copy; OpenStreetMap contributors"
-    />
-    {terapeutasFiltrados.map((t) => (
-      <Marker key={t.Id} position={[t.Latitud, t.Longitud]} icon={customIcon}>
-        <Popup>
-          <div className="text-center">
-            <div className="w-16 h-16 rounded-full overflow-hidden mx-auto mb-2">
-              <img src={t.ImagenPerfil} alt={t.NombreApellido} className="w-full h-full object-cover" />
-            </div>
-            <p className="font-semibold text-gray-700">{t.Provincia}</p>
-            <p className="text-sm text-gray-500">{t.Ciudad}</p>
-            <button className="mt-2 text-pink-500 font-medium hover:underline text-sm">
-              Ver perfil
-            </button>
-          </div>
-        </Popup>
-      </Marker>
-    ))}
-    ))
-  </MapContainer>
-</div>
+        <div className="w-full rounded-xl overflow-hidden shadow-lg relative z-0 mb-16">
+          <MapContainer
+            center={[-38.4161, -63.6167]}
+            zoom={4}
+            scrollWheelZoom={true}
+            style={{ width: "100%", height: "400px" }}
+            whenCreated={setMap}
+          >
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution="&copy; OpenStreetMap contributors"
+            />
+
+            <MarkerClusterGroup>
+              {Object.entries(
+                terapeutasFiltrados.reduce((acc, t) => {
+                  const key = `${t.Ciudad}-${t.Provincia}`;
+                  if (!acc[key]) acc[key] = [];
+                  acc[key].push(t);
+                  return acc;
+                }, {})
+              ).map(([key, terapeutasCiudad]) => {
+                const { Latitud, Longitud } = terapeutasCiudad[0];
+
+                return (
+                  <Marker
+                    key={key}
+                    position={[Latitud, Longitud]}
+                    icon={customIcon}
+                  >
+                    <Popup className="w-64">
+                      <div className="text-center">
+                        <div className="mb-2 flex justify-center">
+                          <span className="bg-pink-500 text-white px-2 py-1 rounded-full text-xs">
+                            {terapeutasCiudad.length} terapeuta{terapeutasCiudad.length > 1 ? "s" : ""}
+                          </span>
+                        </div>
+                        {terapeutasCiudad.map((t) => (
+                          <div key={t.Id} className="mb-3 border-b pb-2 last:border-b-0 last:pb-0">
+                            <div className="w-14 h-14 rounded-full overflow-hidden mx-auto mb-1">
+                              <img
+                                src={t.ImagenPerfil}
+                                alt={t.NombreApellido}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <p className="font-semibold text-gray-800 text-sm">{t.NombreApellido}</p>
+                            <button
+                              className="mt-1 text-pink-500 font-medium hover:underline text-xs"
+                              onClick={() =>
+                                navigate(`/terapeuta/${slugify(t.NombreApellido, { lower: true, strict: true })}`)
+                              }
+                            >
+                              Ver perfil
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </Popup>
+                  </Marker>
+                );
+              })}
+            </MarkerClusterGroup>
+
+          </MapContainer>
+        </div>
 
   {/* ¿Quién soy? */}
   <div className="py-8 px-4 max-w-6xl mx-auto text-center space-y-6">
@@ -331,7 +413,7 @@ const ciudadesFiltradas = provincia
         </div>
       </div>
     );
-        
+
 
       };
 
