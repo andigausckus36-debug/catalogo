@@ -87,7 +87,7 @@ const PerfilTerapeuta = () => {
       {/* Servicios */}
       <div>
         <h2 className="text-xl font-medium mb-4 text-center">Mis servicios 🌻</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-6">
           {serviciosDelTerapeuta.map((s) => (
             <div key={s.Id} className="rounded-lg overflow-hidden text-center">
               <img
@@ -98,9 +98,9 @@ const PerfilTerapeuta = () => {
               />
               <div className="p-2">
                 <p className="text-sm text-gray-500">{s.Categoria}</p>
-                <h3 className="font-medium text-xl text-pink-600 mt-1">{s.Titulo}</h3>
+                <h3 className="font-medium text-gl text-pink-600 mt-1">{s.Titulo}</h3>
                 <p className="text-gray-600 font-normal text-xl mt-2 mb-2">${s.Precio.toLocaleString("es-AR")}</p>
-                <p className="text-gray-600 mb-2">{s.Modalidad || "Online"}</p>
+                <p className="text-gray-600 mb-2 text-sm">{s.Modalidad || "Online"}</p>
                 <button
                   className="mt-4 px-6 bg-pink-500 text-white py-1 rounded-xl hover:bg-pink-600 transition"
                   onClick={() => navigate(`/servicio/${slugify(s.Titulo, { lower: true, strict: true })}`)}

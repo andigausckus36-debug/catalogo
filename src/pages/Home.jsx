@@ -15,6 +15,8 @@ import servicios from "../data/servicios.json";
 import { useNavigate } from "react-router-dom";
 import slugify from "slugify";
 import MusicPlayer from "../componente/MusicPlayer";
+import { useContext } from "react";
+import { MusicContext } from "../context/MusicContext.jsx";
 
 const Home = () => {
   const bannerUrl = "https://i.postimg.cc/1tr6GDCT/front-view-therapist-woman-1-min.jpg";
@@ -414,7 +416,7 @@ const ciudadesFiltradas = provincia
         </div>
 
       {/* Música relajante flotante */}
-      <MusicPlayer src="/musica/relajante.mp3" />
+      <MusicPlayer />
       </div>
     );
 
